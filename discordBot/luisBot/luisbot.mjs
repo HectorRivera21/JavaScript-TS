@@ -35,7 +35,7 @@ client.on('messageCreate', async (msg) => {
           const channel = client.channels.cache.get(process.env.CHANNEL_ID);
           channel.send(content);
         });
-        await msg.channel.sendTyping()
+        await msg.channel.sendTyping();
         msg.reply(`Message '${content}' scheduled for 6 am.`);
     }
     ///
@@ -47,8 +47,7 @@ client.on('messageCreate', async (msg) => {
           const channel = client.channels.cache.get(process.env.CHANNEL_ID);
           channel.send(content);
         });
-        await msg.channel.sendTyping()
+        await msg.channel.sendTyping();
         msg.reply(`Message '${content}' scheduled 12 pm.`);
-        
     }
 });

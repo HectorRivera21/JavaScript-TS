@@ -26,17 +26,7 @@ client.on('messageCreate', async (msg) => {
     if(msg.content.startsWith(prefix+'help')){
         msg.reply("command for schedule: \n!morning 'message' \n!night 'message'");
     }
-    if (msg.content.startsWith(prefix + 'test') && msg.author.bot != true) {
-        const args = msg.content.toLowerCase().slice(prefix.length).trim().split(/ +/);
-        const content = args.slice(1).join(' ');
-        // Schedule messages for 6 am 
-        cron.schedule('11 1 * * *', () => {
-          const channel = client.channels.cache.get(process.env.CHANNEL_ID);
-          channel.send(content);
-        });
-        await msg.channel.sendTyping()
-        msg.reply(`Message '${content}' scheduled for 6 am.`);
-    }
+    //
     if (msg.content.startsWith(prefix + 'morning') && msg.author.bot != true) {
         const args = msg.content.toLowerCase().slice(prefix.length).trim().split(/ +/);
         const content = args.slice(1).join(' ');
@@ -48,6 +38,7 @@ client.on('messageCreate', async (msg) => {
         await msg.channel.sendTyping()
         msg.reply(`Message '${content}' scheduled for 6 am.`);
     }
+    ///
     if (msg.content.startsWith(prefix + 'night') && msg.author.bot != true) {
         const args = msg.content.toLowerCase().slice(prefix.length).trim().split(/ +/);
         const content = args.slice(1).join(' ');

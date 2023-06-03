@@ -10,8 +10,6 @@ const client = new Client({
         IntentsBitField.Flags.MessageContent,
     ],
 });
-
-
 client.login(process.env.DISCORD_TOKEN);
 
 client.on('ready',(c)=>{
@@ -24,10 +22,10 @@ client.on('ready',(c)=>{
 });
 client.on('messageCreate', async (msg) => {
     if(msg.content.startsWith(prefix+'help')){
-        msg.reply("command for schedule: \n!morning 'message' \n!night 'message'");
+        msg.reply("command for schedule: \n!h 'message every hour' \n!morning 'message' \n!night 'message'");
     }
-    
-    if(msg.content.startsWith(prefix + 'hour' && msg.author.bot != true)){
+
+    if(msg.content.startsWith(prefix + 'h') && msg.author.bot != true){
         const args = msg.content.toLowerCase().slice(prefix.length).trim().split(/ +/);
         const content = args.slice(1).join(' ');
         cron.schedule('0 * * * *', () => {

@@ -21,7 +21,7 @@ client.on('messageCreate', async (msg) => {
         try {
             var response = await fetch("http://animechan.melosh.space/random")
             var random = await response.json();
-            console.log(result);
+            console.log(random);
         } catch (error) {
             console.error(error);
         }

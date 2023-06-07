@@ -1,9 +1,8 @@
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 dotenv.config();
-import { Client, IntentsBitField, EmbedBuilder} from 'discord.js';
+import { Client, IntentsBitField, } from 'discord.js';
 // import cron from 'node-cron';
-const prefix = "!"
 const client = new Client({
     intents: [
         IntentsBitField.Flags.Guilds,

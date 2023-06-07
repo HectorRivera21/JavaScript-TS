@@ -19,7 +19,7 @@ client.on('ready',(c)=>{
 client.on('messageCreate', async (msg) => {
     if(msg.content.startsWith(prefix + 'Q') && msg.author.bot != true){
         try {
-            var response = await fetch("http://animechan.melosh.space/random")
+            const response = await fetch("http://animechan.melosh.space/random")
             var random = await response.json();
             console.log(result);
         } catch (error) {

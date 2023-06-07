@@ -1,8 +1,9 @@
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 dotenv.config();
-import { Client, IntentsBitField, } from 'discord.js';
+import { Client, IntentsBitField, EmbedBuilder} from 'discord.js';
 // import cron from 'node-cron';
+const prefix = "!"
 const client = new Client({
     intents: [
         IntentsBitField.Flags.Guilds,
@@ -21,16 +22,16 @@ client.on('messageCreate', async (msg) => {
             const response = await fetch("http://animechan.melosh.space/random")
             var random = await response.json();
             console.log(random);
-        } catch (e) {
-            console.error(e);
+        } catch (error) {
+            console.error(error);
         }
-        const exampleEmbed = new EmbedBuilder()
+        const animeQoute = new EmbedBuilder()
         .setColor(0x0099FF)
         .setTitle(`${random.anime}`)
         .setAuthor({name: `${random.character}`})
         .setDescription(`${random.quote}`);
 
         const channel = client.channels.cache.get(process.env.CHANNEL_ID);
-        channel.send({ embeds: [exampleEmbed] });
+        channel.send({ embeds: [animeQoute] });
     };
 });

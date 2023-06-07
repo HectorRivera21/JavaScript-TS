@@ -21,8 +21,8 @@ client.on('messageCreate', async (msg) => {
             const response = await fetch("http://animechan.melosh.space/random")
             var random = await response.json();
             console.log(random);
-        } catch (error) {
-            console.error(error);
+        } catch (e) {
+            console.error(e);
         }
         const exampleEmbed = new EmbedBuilder()
         .setColor(0x0099FF)

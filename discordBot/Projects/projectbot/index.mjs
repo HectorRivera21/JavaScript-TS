@@ -26,7 +26,16 @@ const animeAPI= async () =>
         console.error(error);
     }
 };
-
+const SearchQouteApi= async (Title) =>
+{
+    try {
+        const response = await fetch(`http://animechan.melosh.space/random/anime?title=${Title}`);
+        const Search = await response.json();
+        return Search;
+    } catch (error) {
+        console.error(error);
+    }
+};
 const animeSearchApi = async (Title) =>
 {   
     if(Title != null){
@@ -56,18 +65,17 @@ const animeSearchApi = async (Title) =>
 };
 
 client.on('messageCreate', async (msg) => {
-    if(msg.content.startsWith(prefix + 'Q') && msg.author.bot != true){
+    if(msg.content.startsWith(prefix + 'random') && msg.author.bot != true){
 
         const random =  await animeAPI();
         const search =  await animeSearchApi(random.anime);
-        console.log('object :>> ', search);
         const picture = ((search.picture_url != null) ? search.picture_url : "https://cdn.pixabay.com/photo/2018/01/04/15/51/404-error-3060993_1280.png");
         const animeQoute = new EmbedBuilder()
         .setColor(0x0099FF)
         .setTitle(`${random.anime}`)
         .setAuthor({name: `${random.character}`})
         .setDescription(`${random.quote}`)
-        .setThumbnail(`${picture}`);
+        .setThumbnail(picture);
 
         const channel = client.channels.cache.get(process.env.CHANNEL_ID);
         channel.send({ embeds: [animeQoute] });
@@ -76,15 +84,19 @@ client.on('messageCreate', async (msg) => {
 
 client.on('messageCreate', async (msg) => {
     if(msg.content.startsWith(prefix + 'search') && msg.author.bot != true){
-        const search =  await animeSearchApi();
-        // const animeQoute = new EmbedBuilder()
-        // .setColor(0x0099FF)
-        // .setTitle(`${random.anime}`)
-        // .setAuthor({name: `${random.character}`})
-        // .setDescription(`${random.quote}`)
-        // .setImage('https://i.imgur.com/AfFp7pu.png');
+		const args = msg.content.slice(prefix.length).trim().split(/ +/);
+		const content = args.slice(1).join(' ');
+		const search =  await animeSearchApi(content);
+		const randomSearch = await SearchQouteApi(content.toLowerCase());
+		const picture = ((search.picture_url != null) ? search.picture_url : "https://cdn.pixabay.com/photo/2018/01/04/15/51/404-error-3060993_1280.png");
+        const animeQoute = new EmbedBuilder()
+		 .setColor(0x0099FF)
+         .setTitle(`${randomSearch.anime}`)
+         .setAuthor({name: `${randomSearch.character}`})
+         .setDescription(`${randomSearch.quote}`)
+         .setImage(picture);
 
-        // const channel = client.channels.cache.get(process.env.CHANNEL_ID);
-        // channel.send({ embeds: [animeQoute] });
+         const channel = client.channels.cache.get(process.env.CHANNEL_ID);
+         channel.send({ embeds: [animeQoute] });
     };
 });
